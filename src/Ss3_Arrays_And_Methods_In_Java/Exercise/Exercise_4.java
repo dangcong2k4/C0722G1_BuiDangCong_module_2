@@ -14,10 +14,8 @@ public class Exercise_4 {
         }
 
         int sum =0;
-        int j = 0;
         for (int i = 0; i <arr.length ; i++) {
-            sum += arr[i][j];
-            j++;
+            sum += arr[i][i];
         }
         System.out.println("tổng các số ở đường chéo của ma trận hình vuông là : "+sum);
 

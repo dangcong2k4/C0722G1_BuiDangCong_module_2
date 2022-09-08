@@ -6,12 +6,13 @@ public class Exercise_5 {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         System.out.println("nhập ký tự cần đếm :");
-        String characters = scanner.nextLine();
-        String chain = "coong vhbjgh ";
+        char characters = scanner.nextLine().charAt(0);
+
+        String chain = "Bui Dang Cong";
         int count = 0;
-//        System.out.println(chain.charAt(0));
+
         for (int i = 0; i < chain.length() ; i++) {
-            if (characters.equals(chain.charAt(i))){
+            if (chain.charAt(i)==characters){
                 count++;
             }
         }
