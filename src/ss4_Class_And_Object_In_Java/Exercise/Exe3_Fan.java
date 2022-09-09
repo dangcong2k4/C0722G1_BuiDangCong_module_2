@@ -42,7 +42,6 @@ public class Exe3_Fan {
     public void setColor(String color) {
         this.color = color;
     }
-
     @Override
     public String toString() {
         if(this.on == true ){
@@ -62,20 +61,18 @@ public class Exe3_Fan {
                     '}';
         }
         }
-
-
     public static void main(String[] args) {
         Exe3_Fan fan1 = new Exe3_Fan();
-        fan1.setSpeed(4);
+        fan1.setSpeed(fan1.FAST);
         fan1.setRadius(10);
         fan1.setColor("yellow");
         fan1.setOn(true);
         System.out.println(fan1);
         Exe3_Fan fan2 = new Exe3_Fan();
+        fan2.setSpeed(fan1.FAST/2);
         fan2.setRadius(5);
         fan2.setColor("blue");
         fan2.setOn(false);
         System.out.println(fan2);
-
     }
 }
