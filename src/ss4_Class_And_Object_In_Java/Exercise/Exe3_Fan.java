@@ -44,7 +44,7 @@ public class Exe3_Fan {
     }
     @Override
     public String toString() {
-        if(this.on == true ){
+        if(this.on){
             return "Exe3_Fan{" +
                     "' speed=" + speed +
                     ", radius=" + radius +
@@ -69,7 +69,7 @@ public class Exe3_Fan {
         fan1.setOn(true);
         System.out.println(fan1);
         Exe3_Fan fan2 = new Exe3_Fan();
-        fan2.setSpeed(fan1.FAST/2);
+        fan2.setSpeed(fan1.MEDIUM);
         fan2.setRadius(5);
         fan2.setColor("blue");
         fan2.setOn(false);
