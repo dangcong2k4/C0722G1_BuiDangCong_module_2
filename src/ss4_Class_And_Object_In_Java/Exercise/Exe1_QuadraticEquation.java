@@ -34,9 +34,9 @@ public class Exe1_QuadraticEquation {
         Scanner scanner = new Scanner(System.in);
         System.out.print("nhập số a :");
         double a = scanner.nextDouble();
-        System.out.print("nhập số a :");
+        System.out.print("nhập số b :");
         double b = scanner.nextDouble();
-        System.out.print("nhập số a :");
+        System.out.print("nhập số c :");
         double c = scanner.nextDouble();
 
         Exe1_QuadraticEquation quadraticEquation = new Exe1_QuadraticEquation(a,b,c);
