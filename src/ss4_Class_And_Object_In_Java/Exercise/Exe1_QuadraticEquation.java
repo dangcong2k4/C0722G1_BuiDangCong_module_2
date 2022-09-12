@@ -3,7 +3,9 @@ package ss4_Class_And_Object_In_Java.Exercise;
 import java.util.Scanner;
 
 public class Exe1_QuadraticEquation {
-    double a,b,c;
+    double a;
+    double b;
+    double c;
     public Exe1_QuadraticEquation(){
     }
     public Exe1_QuadraticEquation(double a,double b,double c){
@@ -24,10 +26,10 @@ public class Exe1_QuadraticEquation {
         return (-b)/(2*a);
     }
     public double getRoot1(){
-        return (-b+ Math.sqrt(b*b-4*a))/2*a;
+        return (-b+ Math.sqrt(getDelta()))/2*a;
     }
     public double getRoot2(){
-        return (-b- Math.sqrt(b*b-4*a))/2*a;
+        return (-b- Math.sqrt(getDelta()))/2*a;
     }
 
     public static void main(String[] args) {
