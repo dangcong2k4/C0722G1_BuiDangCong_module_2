@@ -1,6 +1,6 @@
 package Ss7_Abstract_Class_and_Interface.Exercise.Colorable_for_layers;
 
-public class Circle extends Geometry implements Colorable{
+public class Circle extends Geometry{
     private double radius;
 
     public Circle() {
@@ -18,11 +18,6 @@ public class Circle extends Geometry implements Colorable{
         this.radius = radius;
     }
 
-
-    @Override
-    public void howToColor() {
-
-    }
 
     @Override
     double getArea() {

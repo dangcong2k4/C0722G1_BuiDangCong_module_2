@@ -1,6 +1,6 @@
 package Ss7_Abstract_Class_and_Interface.Exercise.Colorable_for_layers;
 
-public class Rectangle extends Geometry implements Colorable{
+public class Rectangle extends Geometry{
     private double longs;
     private double width;
 
@@ -28,9 +28,6 @@ public class Rectangle extends Geometry implements Colorable{
         this.width = with;
     }
 
-    @Override
-    public void howToColor() {
-    }
 
     @Override
     double getArea() {
