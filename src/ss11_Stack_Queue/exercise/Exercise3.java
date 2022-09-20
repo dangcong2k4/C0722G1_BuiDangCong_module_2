@@ -3,7 +3,7 @@ package ss11_Stack_Queue.exercise;
 import java.util.Scanner;
 import java.util.Stack;
 
-public class Exercise2 {
+public class Exercise3 {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         Stack<Integer> stackBinary = new Stack<>();
