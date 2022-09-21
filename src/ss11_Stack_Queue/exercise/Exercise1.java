@@ -6,8 +6,8 @@ import java.util.Stack;
 public class Exercise1 {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        Stack<Integer> stackNumber = new Stack<Integer>();
-        Stack<Integer> stackNumber2 = new Stack<Integer>();
+        Stack<Integer> stackNumber = new Stack<>();
+        Stack<Integer> stackNumber2 = new Stack<>();
 
         System.out.println("nhập độ dài của mảng ");
         int length = Integer.parseInt(scanner.nextLine());
