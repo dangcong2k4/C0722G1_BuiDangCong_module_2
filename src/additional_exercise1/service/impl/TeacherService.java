@@ -1,7 +1,7 @@
-package additional_exercises.service.impl;
+package additional_exercise1.service.impl;
 
-import additional_exercises.model.Teacher;
-import additional_exercises.service.ITeacherService;
+import additional_exercise1.model.Teacher;
+import additional_exercise1.service.ITeacherService;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -44,6 +44,18 @@ public class TeacherService implements ITeacherService {
             System.out.println(teacher);
         }
     }
+
+    @Override
+    public void searchTeacher() {
+        System.out.println("Nhập tên giáo viên cần tìm:");
+        String nameTeacher = scanner.nextLine();
+        for (int i = 0; i < listTeacher.size(); i++) {
+            if(listTeacher.get(i).getName().contains(nameTeacher)){
+                System.out.println(listTeacher.get(i));
+            }
+        }
+    }
+
     public Teacher inFoTeacher(){
         System.out.println("nhập id :");
         int id = Integer.parseInt(scanner.nextLine());

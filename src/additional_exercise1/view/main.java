@@ -1,7 +1,7 @@
-package additional_exercises.view;
+package additional_exercise1.view;
 
-import additional_exercises.controller.StudentController;
-import additional_exercises.controller.TeacherController;
+import additional_exercise1.controller.StudentController;
+import additional_exercise1.controller.TeacherController;
 
 import java.util.Scanner;
 

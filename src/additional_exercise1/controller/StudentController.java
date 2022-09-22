@@ -1,7 +1,7 @@
-package additional_exercises.controller;
+package additional_exercise1.controller;
 
-import additional_exercises.service.IStudentService;
-import additional_exercises.service.impl.StudentService;
+import additional_exercise1.service.IStudentService;
+import additional_exercise1.service.impl.StudentService;
 
 import java.util.Scanner;
 
@@ -14,7 +14,8 @@ public class StudentController<iStudentService> {
             System.out.println("1. Thêm mới học sinh");
             System.out.println("2. Xóa học sinh");
             System.out.println("3. Xem danh sách học sinh");
-            System.out.println("4. thoát ");
+            System.out.println("4. tìm kiếm học sinh bằng tên ");
+            System.out.println("5. thoát ");
             int option = Integer.parseInt(scanner.nextLine());
             switch (option){
                 case 1:
@@ -27,6 +28,9 @@ public class StudentController<iStudentService> {
                     iStudentService.displayStudent();
                     break;
                 case 4:
+                    iStudentService.searchStudent();
+                    break;
+                case 5:
                     return;
             }
         }while (true);

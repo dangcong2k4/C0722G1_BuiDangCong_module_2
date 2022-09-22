@@ -1,7 +1,7 @@
-package additional_exercises.service.impl;
+package additional_exercise1.service.impl;
 
-import additional_exercises.model.Student;
-import additional_exercises.service.IStudentService;
+import additional_exercise1.model.Student;
+import additional_exercise1.service.IStudentService;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -44,6 +44,19 @@ public class StudentService implements IStudentService {
             System.out.println(student);
         }
     }
+
+    @Override
+    public void searchStudent() {
+        System.out.println("Nhập tên học sinh cần tìm:");
+        String nameStudent = scanner.nextLine();
+        for (int i = 0; i < listStudent.size(); i++) {
+            if(listStudent.get(i).getName().contains(nameStudent)){
+                System.out.println(listStudent.get(i));
+            }
+        }
+    }
+
+
     public  Student inFoStudent(){
         System.out.println("nhập id :");
         int id = Integer.parseInt(scanner.nextLine());

@@ -1,4 +1,4 @@
-package additional_exercises.model;
+package additional_exercise1.model;
 
 public class Teacher extends Person{
     private String specialize;
