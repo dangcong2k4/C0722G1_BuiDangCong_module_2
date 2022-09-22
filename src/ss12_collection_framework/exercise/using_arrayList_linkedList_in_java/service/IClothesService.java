@@ -6,4 +6,5 @@ public interface IClothesService {
     void deleteClothesService();
     void displayClothesService();
     void searchClothesService();
+    void sortClothesService();
 }

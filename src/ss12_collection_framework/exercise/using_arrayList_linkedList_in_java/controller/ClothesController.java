@@ -16,7 +16,8 @@ public class ClothesController<iClothesService> {
             System.out.println("3. Hiển thị danh sách sản phẩm ");
             System.out.println("4. Sửa thông tin sản phẩm ");
             System.out.println("5. Tìm kiếm sản phẩm ");
-            System.out.println("6. thoát ");
+            System.out.println("6. sắp xếp theo tăng dần theo giá ");
+            System.out.println("7. thoát ");
             int option = Integer.parseInt(scanner.nextLine());
             switch (option){
                 case 1:
@@ -33,7 +34,11 @@ public class ClothesController<iClothesService> {
                     break;
                 case 5:
                     iClothesService.searchClothesService();
+                    break;
                 case 6:
+                    iClothesService.sortClothesService();
+                    break;
+                case 7:
                     return;
             }
         }while (true);

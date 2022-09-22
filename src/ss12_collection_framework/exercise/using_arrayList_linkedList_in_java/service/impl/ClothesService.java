@@ -5,6 +5,7 @@ import ss12_collection_framework.exercise.using_arrayList_linkedList_in_java.ser
 
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.Collections;
 
 public class ClothesService implements IClothesService {
     private static Scanner scanner = new Scanner(System.in);
@@ -61,14 +62,14 @@ public class ClothesService implements IClothesService {
                 count++;
             }
             if (count==listClothes.size()){
-                System.out.println("Không tìm thấy iD "+iD+ " để update");
+                System.out.println("Không tìm thấy iD "+iD+ " để sửa ");
             }
         }
     }
 
     @Override
     public void deleteClothesService() {
-        System.out.println("nhập biển kiểm soát ");
+        System.out.println("nhập id của sản phẩm cần xóa : ");
         String id = scanner.nextLine();
 
         boolean flagDelete = false;
@@ -97,13 +98,28 @@ public class ClothesService implements IClothesService {
 
     @Override
     public void searchClothesService() {
-        System.out.println("Nhập tên Phone cần tìm:");
+        System.out.println("Nhập tên sản phẩm cần tìm:");
         String nameClothes = scanner.nextLine();
         for (int i = 0; i < listClothes.size(); i++) {
             if(listClothes.get(i).getNameClothes().contains(nameClothes)){
                 System.out.println(listClothes.get(i));
             }
         }
+
+    }
+
+    @Override
+    public void sortClothesService() {
+        Collections.sort(listClothes, (Clothes clothes1, Clothes clothes2)->{
+            if(clothes1.getPrice() < clothes2.getPrice()){
+                return -1;
+            } else if(clothes1.getPrice() == clothes2.getPrice()){
+                return 0;
+            } else {
+                return 1;
+            }
+        });
+        displayClothesService();
     }
 
     public Clothes inFoClothes(){
