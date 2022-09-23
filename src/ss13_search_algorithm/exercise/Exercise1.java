@@ -1,7 +1,6 @@
 package ss13_search_algorithm.exercise;
 
 import java.nio.charset.StandardCharsets;
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class Exercise1 {
@@ -11,11 +10,12 @@ public class Exercise1 {
         String string = scanner.nextLine();
 
         byte[] bytes = string.getBytes(StandardCharsets.US_ASCII);
-
+        int index = 0;
         System.out.print((char)bytes[0]);
         for (int i = 1; i <string.length(); i++) {
-            if (bytes[i] >bytes[i-1] ){
+            if (bytes[i] >bytes[index] ){
                 System.out.print((char)bytes[i]);
+                index=i;
             }
         }
 
