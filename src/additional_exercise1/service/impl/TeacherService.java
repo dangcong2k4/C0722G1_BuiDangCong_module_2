@@ -1,5 +1,6 @@
 package additional_exercise1.service.impl;
 
+import additional_exercise1.model.Student;
 import additional_exercise1.model.Teacher;
 import additional_exercise1.service.ITeacherService;
 
@@ -53,6 +54,30 @@ public class TeacherService implements ITeacherService {
             if(listTeacher.get(i).getName().contains(nameTeacher)){
                 System.out.println(listTeacher.get(i));
             }
+        }
+    }
+
+    @Override
+    public void sortNameTeacher() {
+        for (int i = 0; i <listTeacher.size() ; i++) {
+            for (int j = 0; j <listTeacher.size()-i-1 ; j++) {
+                if (listTeacher.get(j).getName().compareTo(listTeacher.get(j+1).getName()) > 0){
+                    Teacher nameTeacher = listTeacher.get(j);
+                    listTeacher.set(j,listTeacher.get(j+1));
+                    listTeacher.set(j+1,nameTeacher);
+                }
+                if (listTeacher.get(j).getName().compareTo(listTeacher.get(j+1).getName())==0){
+                    if(listTeacher.get(j).getId()>listTeacher.get(j+1).getId()){
+                        Teacher idTeacher = listTeacher.get(j);
+                        listTeacher.set(j,listTeacher.get(j+1));
+                        listTeacher.set(j+1,idTeacher);
+                    }
+
+                }
+            }
+        }
+        for (int i = 0; i <listTeacher.size() ; i++) {
+            System.out.println(listTeacher.get(i));
         }
     }
 

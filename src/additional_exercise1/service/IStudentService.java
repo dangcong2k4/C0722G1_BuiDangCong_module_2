@@ -5,4 +5,5 @@ public interface IStudentService {
     void deleteStudent();
     void displayStudent();
     void searchStudent();
+    void sortNameStudent();
 }

@@ -56,6 +56,34 @@ public class StudentService implements IStudentService {
         }
     }
 
+    @Override
+    public void sortNameStudent() {
+        for (int i = 0; i <listStudent.size() ; i++) {
+            for (int j = 0; j <listStudent.size()-i-1 ; j++) {
+                if (listStudent.get(j).getName().compareTo(listStudent.get(j+1).getName()) > 0){
+                    Student nameStudent = listStudent.get(j);
+                    listStudent.set(j,listStudent.get(j+1));
+                    listStudent.set(j+1,nameStudent);
+                }
+                if (listStudent.get(j).getName().compareTo(listStudent.get(j+1).getName()) == 0){
+                    if (listStudent.get(j).getId()>listStudent.get(j+1).getId()){
+                        Student nameStudent = listStudent.get(j);
+                        listStudent.set(j,listStudent.get(j+1));
+                        listStudent.set(j+1,nameStudent);
+                    }
+
+                }
+            }
+        }
+
+
+        for (int i = 0; i <listStudent.size() ; i++) {
+            System.out.println(listStudent.get(i));
+        }
+
+    }
+
+
 
     public  Student inFoStudent(){
         System.out.println("nhập id :");
