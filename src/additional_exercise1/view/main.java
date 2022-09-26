@@ -11,6 +11,7 @@ public class main {
 
             System.out.println("1. kiểm tra Học sinh ");
             System.out.println("2. kiểm tra Giáo viên ");
+            System.out.println("3. kết thúc ");
             Scanner scanner = new Scanner(System.in);
             int option = scanner.nextInt();
             switch (option){
@@ -19,6 +20,10 @@ public class main {
                     break;
                 case 2:
                     TeacherController.menuTeacher();
+                    break;
+                case 3:
+                    System.out.println("kết thúc chương trình quản lý học sinh và giáo viên ");
+                    return ;
             }
         }while (true);
 

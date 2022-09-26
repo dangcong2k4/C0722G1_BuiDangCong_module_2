@@ -7,5 +7,6 @@ public class Test {
         student.setName("cong");
         student.setClasses("C0722G1");
         System.out.println(student.toString());
+
     }
 }

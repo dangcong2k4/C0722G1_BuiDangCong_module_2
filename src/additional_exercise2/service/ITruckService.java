@@ -1,4 +1,8 @@
 package additional_exercise2.service;
 
-public interface ItruckService {
+public interface ITruckService {
+    void addTruck();
+    void displayTruck();
+    void deleteTruck();
+    void searchTruck();
 }

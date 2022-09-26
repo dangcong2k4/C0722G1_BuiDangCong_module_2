@@ -3,7 +3,7 @@ package ss10_DSA_List.exercise.Implement_methods_of_ArrayList;
 import java.util.Arrays;
 
 public class MyList <E>{
-    /**
+    /**mp
      * số lượng phần tử có trong arraylist
      */
     int size = 0;

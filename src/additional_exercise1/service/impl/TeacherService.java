@@ -4,6 +4,7 @@ import additional_exercise1.model.Student;
 import additional_exercise1.model.Teacher;
 import additional_exercise1.service.ITeacherService;
 
+import java.sql.Array;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -82,14 +83,40 @@ public class TeacherService implements ITeacherService {
     }
 
     public Teacher inFoTeacher(){
-        System.out.println("nhập id :");
-        int id = Integer.parseInt(scanner.nextLine());
+        int id;
+        while (true){
+            try {
+                System.out.println("nhập id giáo viên :");
+                id = Integer.parseInt(scanner.nextLine());
+                break;
+            }catch (NumberFormatException e){
+                System.out.println("điền sai định dạng, vui lòng nhập lại!!");
+            }
+        }
         System.out.println("nhập tên giáo viên :");
-        String name = scanner.nextLine();
+        String name ;
+        while (true){
+            try {
+                name = scanner.nextLine();
+                for (int i = 0; i < name.length(); i++) {
+                    if (name.charAt(i)>0&&name.charAt(i)<32 || name.charAt(i)>32&&name.charAt(i)<65 || name.charAt(i)>90&&name.charAt(i)<97 || name.charAt(i)>122){
+                        throw new IllegalArgumentException("phải nhập tên bằng chữ, hãy nhập lại!");
+                    }
+                }
+                break;
+
+            }catch (IllegalArgumentException e){
+                System.out.println(e.getMessage());
+            }
+        }
         System.out.println("nhập ngày sinh :");
         String birthDay = scanner.nextLine();
         System.out.println("nhập giới tính :");
         String age = scanner.nextLine();
+        while (!age.equals("Nam") && !age.equals("Nữ") && !age.equals("giới tính thứ 3")){
+            System.out.println("hãy nhập đúng giới tính, hãy nhập lại:");
+            age = scanner.nextLine();
+        }
         System.out.println("nhập chuyên môn :");
         String specialize = scanner.nextLine();
         Teacher teacher = new Teacher(id,name,birthDay,age,specialize);

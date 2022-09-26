@@ -11,6 +11,7 @@ public class Exercise_2 {
         String[] array = {"zero","one","two","three","Four","five","six","seven","eight","nine","ten"};
         String[] array1 = {"eleven","twelve","thirteen","fourteen","fifteen","sixteen","seventeen","eighteen","nineteen","twenty"};
         String[] array2 = {"twenty","thirty","forty","fifty","sixty","seventy","eighty ","ninety"};
+
         if (number<=10){
             System.out.print(array[number]);
         }else if (number<=20){

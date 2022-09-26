@@ -75,29 +75,63 @@ public class StudentService implements IStudentService {
                 }
             }
         }
-
-
         for (int i = 0; i <listStudent.size() ; i++) {
             System.out.println(listStudent.get(i));
         }
-
     }
-
-
-
     public  Student inFoStudent(){
-        System.out.println("nhập id :");
-        int id = Integer.parseInt(scanner.nextLine());
+
+        int id;
+        while (true){
+            try {
+                System.out.println("nhập id học sinh :");
+                id = Integer.parseInt(scanner.nextLine());
+                break;
+            }catch (NumberFormatException e){
+                System.out.println("điền sai định dạng, vui lòng nhập lại!!");
+            }
+        }
         System.out.println("nhập tên học sinh :");
-        String name = scanner.nextLine();
+        String name;
+        while (true){
+            try {
+                name = scanner.nextLine();
+                for (int i = 0; i < name.length(); i++) {
+                    if (name.charAt(i)>0&&name.charAt(i)<32 || name.charAt(i)>32&&name.charAt(i)<65 || name.charAt(i)>90&&name.charAt(i)<97 || name.charAt(i)>122){
+                        throw new IllegalArgumentException("phải nhập tên bằng chữ, hãy nhập lại!");
+                    }
+                }
+                break;
+
+            }catch (IllegalArgumentException e){
+                System.out.println(e.getMessage());
+            }
+        }
         System.out.println("nhập ngày sinh :");
         String birthDay = scanner.nextLine();
         System.out.println("nhập giới tính :");
         String age = scanner.nextLine();
+        while (!age.equals("Nam") && !age.equals("Nữ") && !age.equals("giới tính thứ 3")){
+            System.out.println("hãy nhập đúng giới tính, hãy nhập lại:");
+            age = scanner.nextLine();
+        }
+
         System.out.println("nhập tên lớp :");
         String nameClass = scanner.nextLine();
-        System.out.println("nhập điểm :");
-        double scores = Double.parseDouble(scanner.nextLine());
+        double scores;
+        while (true){
+            try {
+                System.out.println("nhập điểm :");
+                scores = Double.parseDouble(scanner.nextLine());
+                while (scores < 0 || scores > 10){
+                    System.out.println("hãy nhập thang điểm từ 0 đến 10, nhập lại:");
+                    scores = Double.parseDouble(scanner.nextLine());
+                }
+                break;
+            }catch (NumberFormatException e){
+                System.out.println("nhập sai định dạng, hãy nhập lại:");
+            }
+        }
         Student student = new Student(id,name,birthDay,age,nameClass,scores);
         return student;
     }
