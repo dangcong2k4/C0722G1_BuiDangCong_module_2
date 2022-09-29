@@ -1,0 +1,6 @@
+cong
+sang
+khanh
+dat
+bao
+tổng các ký tự là : 19
