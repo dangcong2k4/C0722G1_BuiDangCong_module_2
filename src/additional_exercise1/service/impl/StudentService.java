@@ -3,17 +3,52 @@ package additional_exercise1.service.impl;
 import additional_exercise1.model.Student;
 import additional_exercise1.service.IStudentService;
 
+import java.io.*;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class StudentService implements IStudentService {
     private static Scanner scanner = new Scanner(System.in);
     private static ArrayList<Student> listStudent= new ArrayList<>();
     @Override
-    public  void addStudent() {
+    public  void addStudent() throws IOException {
+        List<Student> studentList = getStudentFromFile();
         listStudent.add(inFoStudent());
         System.out.println("thêm học sinh thành công ");
+        writeFile(studentList);
     }
+
+
+    private List<Student> getStudentFromFile() throws IOException {
+        File file = new File("C:\\CODEGYM\\module2\\src\\additional_exercise1\\data\\studentFile");
+        FileReader fileReader = new FileReader(file);
+        BufferedReader bufferedReader = new BufferedReader(fileReader);
+
+        String line;
+        List<Student> studentList = new ArrayList<>();
+        String[] info;
+        Student student;
+        while ((line = bufferedReader.readLine())!=null) {
+            info = line.split(",");
+            student = new Student(Integer.parseInt(info[0]),info[1],info[2],info[3],info[4],Double.parseDouble(info[5]));
+            studentList.add(student);
+        }
+        bufferedReader.close();
+        return studentList;
+    }
+    private void writeFile(List<Student> studentList) throws IOException {
+        File file = new File("C:\\CODEGYM\\module2\\src\\additional_exercise1\\data\\studentFile");
+
+        BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(file));
+
+        for (Student student:studentList) {
+            bufferedWriter.write(student.getInfo());
+            bufferedWriter.newLine();
+        }
+        bufferedWriter.close();
+    }
+
 
     @Override
     public void deleteStudent() {

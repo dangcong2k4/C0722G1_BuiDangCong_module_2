@@ -4,17 +4,51 @@ import additional_exercise1.model.Student;
 import additional_exercise1.model.Teacher;
 import additional_exercise1.service.ITeacherService;
 
+import java.io.*;
 import java.sql.Array;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class TeacherService implements ITeacherService {
     private static Scanner scanner = new Scanner(System.in);
     private static ArrayList<Teacher> listTeacher = new ArrayList<>();
     @Override
-    public void addTeacher() {
+    public void addTeacher() throws IOException {
+        List<Teacher> teacherList = getTeacherFromFile();
         listTeacher.add(inFoTeacher());
         System.out.println("thêm mới thành công ");
+        writeFile(teacherList);
+    }
+
+
+    private List<Teacher> getTeacherFromFile() throws IOException {
+        File file = new File("C:\\CODEGYM\\module2\\src\\additional_exercise1\\data\\teacher.txt");
+        FileReader fileReader = new FileReader(file);
+        BufferedReader bufferedReader = new BufferedReader(fileReader);
+
+        String line;
+        List<Teacher> teacherList = new ArrayList<>();
+        String[] info;
+        Teacher teacher;
+        while ((line = bufferedReader.readLine())!=null) {
+            info = line.split(",");
+            teacher = new Teacher(Integer.parseInt(info[0]),info[1],info[2],info[3],info[4]);
+            teacherList.add(teacher);
+        }
+        bufferedReader.close();
+        return teacherList;
+    }
+    private void writeFile(List<Teacher> teacherList) throws IOException {
+        File file = new File("C:\\CODEGYM\\module2\\src\\additional_exercise1\\data\\teacher.txt");
+        BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(file));
+
+        for (Teacher teacher: teacherList) {
+            bufferedWriter.write(teacher.getInfo());
+            bufferedWriter.newLine();
+        }
+        bufferedWriter.close();
+
     }
 
     @Override

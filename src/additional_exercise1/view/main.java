@@ -3,10 +3,11 @@ package additional_exercise1.view;
 import additional_exercise1.controller.StudentController;
 import additional_exercise1.controller.TeacherController;
 
+import java.io.IOException;
 import java.util.Scanner;
 
 public class main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         do {
 
             System.out.println("1. kiểm tra Học sinh ");

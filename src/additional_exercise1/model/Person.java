@@ -53,6 +53,8 @@ public abstract class Person {
         return "id=" + id +
                 ", name='" + name + '\'' +
                 ", birthDay='" + birthDay + '\'' +
-                ", age='" + age + '\'' ;
+                ", age='" + age + '\'';
     }
 }
+
+

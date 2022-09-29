@@ -3,11 +3,12 @@ package additional_exercise1.controller;
 import additional_exercise1.service.IStudentService;
 import additional_exercise1.service.impl.StudentService;
 
+import java.io.IOException;
 import java.util.Scanner;
 
 public class StudentController<iStudentService> {
     private static IStudentService iStudentService = new StudentService();
-    public static void menuStudent(){
+    public static void menuStudent() throws IOException {
 
         Scanner scanner = new Scanner(System.in);
         do {
