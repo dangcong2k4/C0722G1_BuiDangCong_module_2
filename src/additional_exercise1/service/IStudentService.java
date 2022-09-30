@@ -4,8 +4,8 @@ import java.io.IOException;
 
 public interface IStudentService {
     void addStudent() throws IOException;
-    void deleteStudent();
-    void displayStudent();
+    void deleteStudent() throws IOException;
+    void displayStudent() throws IOException;
     void searchStudent();
     void sortNameStudent();
 }

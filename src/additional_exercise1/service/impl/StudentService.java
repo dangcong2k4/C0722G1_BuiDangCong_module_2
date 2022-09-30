@@ -10,48 +10,18 @@ import java.util.Scanner;
 
 public class StudentService implements IStudentService {
     private static Scanner scanner = new Scanner(System.in);
-    private static ArrayList<Student> listStudent= new ArrayList<>();
+    private static List<Student> listStudent= new ArrayList<>();
     @Override
     public  void addStudent() throws IOException {
-        List<Student> studentList = getStudentFromFile();
+        listStudent = getStudentFromFile();
         listStudent.add(inFoStudent());
         System.out.println("thêm học sinh thành công ");
-        writeFile(studentList);
+        writeFile(listStudent);
     }
-
-
-    private List<Student> getStudentFromFile() throws IOException {
-        File file = new File("C:\\CODEGYM\\module2\\src\\additional_exercise1\\data\\studentFile");
-        FileReader fileReader = new FileReader(file);
-        BufferedReader bufferedReader = new BufferedReader(fileReader);
-
-        String line;
-        List<Student> studentList = new ArrayList<>();
-        String[] info;
-        Student student;
-        while ((line = bufferedReader.readLine())!=null) {
-            info = line.split(",");
-            student = new Student(Integer.parseInt(info[0]),info[1],info[2],info[3],info[4],Double.parseDouble(info[5]));
-            studentList.add(student);
-        }
-        bufferedReader.close();
-        return studentList;
-    }
-    private void writeFile(List<Student> studentList) throws IOException {
-        File file = new File("C:\\CODEGYM\\module2\\src\\additional_exercise1\\data\\studentFile");
-
-        BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(file));
-
-        for (Student student:studentList) {
-            bufferedWriter.write(student.getInfo());
-            bufferedWriter.newLine();
-        }
-        bufferedWriter.close();
-    }
-
 
     @Override
-    public void deleteStudent() {
+    public void deleteStudent() throws IOException {
+        listStudent = getStudentFromFile();
         System.out.println("nhập id của học sinh cần xóa ");
         int id = Integer.parseInt(scanner.nextLine());
 
@@ -64,20 +34,24 @@ public class StudentService implements IStudentService {
                     listStudent.remove(i);
                     System.out.println("Xóa thành công");
                 }
-//                flagDelete =true;
+                flagDelete =true;
                 break;
             }
-            if(!flagDelete){
-                System.out.println("Không tìm thấy đối tượng cần xóa.");
-            }
+
         }
+        if(!flagDelete){
+            System.out.println("Không tìm thấy đối tượng cần xóa.");
+        }
+        writeFile(listStudent);
     }
 
     @Override
-    public void displayStudent() {
+    public void displayStudent() throws IOException {
+        listStudent = getStudentFromFile();
         for (Student student: listStudent) {
             System.out.println(student);
         }
+        writeFile(listStudent);
     }
 
     @Override
@@ -114,6 +88,8 @@ public class StudentService implements IStudentService {
             System.out.println(listStudent.get(i));
         }
     }
+
+
     public  Student inFoStudent(){
 
         int id;
@@ -169,5 +145,56 @@ public class StudentService implements IStudentService {
         }
         Student student = new Student(id,name,birthDay,age,nameClass,scores);
         return student;
+    }
+
+    private List<Student> getStudentFromFile() {
+        FileReader file = null;
+        List<Student> studentList = new ArrayList<>();
+        BufferedReader bufferedReader = null;
+        try {
+            file = new FileReader("C:\\CODEGYM\\module2\\src\\additional_exercise1\\data\\studentFile.txt");
+            bufferedReader = new BufferedReader(file);
+            String line;
+            String[] info;
+            Student student;
+            while ((line = bufferedReader.readLine())!=null) {
+                info = line.split(",");
+                student = new Student(Integer.parseInt(info[0]),info[1],info[2],info[3],info[4],Double.parseDouble(info[5]));
+                studentList.add(student);
+            }
+        }catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        try {
+            bufferedReader.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return studentList;
+    }
+
+    private void writeFile(List<Student> studentList) {
+        BufferedWriter bufferedWriter = null;
+        try {
+            FileWriter fileWriter = new FileWriter("C:\\CODEGYM\\module2\\src\\additional_exercise1\\data\\studentFile.txt");
+            bufferedWriter = new BufferedWriter(fileWriter);
+            for (Student student: studentList) {
+                bufferedWriter.write(getInfo(student));
+                bufferedWriter.newLine();
+            }
+        }catch (IOException e) {
+            e.printStackTrace();
+        }
+        try {
+            bufferedWriter.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private String getInfo(Student student){
+        return String.format("%s,%s,%s,%s,%s,%s",student.getId(),student.getName(),student.getBirthDay(),student.getAge(),student.getNameClass(),student.getScores());
     }
 }
