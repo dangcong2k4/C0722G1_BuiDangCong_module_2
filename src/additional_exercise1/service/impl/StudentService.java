@@ -12,7 +12,7 @@ public class StudentService implements IStudentService {
     private static Scanner scanner = new Scanner(System.in);
     private static List<Student> listStudent= new ArrayList<>();
     @Override
-    public  void addStudent() throws IOException {
+    public  void addStudent() {
         listStudent = getStudentFromFile();
         listStudent.add(inFoStudent());
         System.out.println("thêm học sinh thành công ");
@@ -20,7 +20,7 @@ public class StudentService implements IStudentService {
     }
 
     @Override
-    public void deleteStudent() throws IOException {
+    public void deleteStudent() {
         listStudent = getStudentFromFile();
         System.out.println("nhập id của học sinh cần xóa ");
         int id = Integer.parseInt(scanner.nextLine());
@@ -46,7 +46,7 @@ public class StudentService implements IStudentService {
     }
 
     @Override
-    public void displayStudent() throws IOException {
+    public void displayStudent() {
         listStudent = getStudentFromFile();
         for (Student student: listStudent) {
             System.out.println(student);
@@ -102,24 +102,33 @@ public class StudentService implements IStudentService {
                 System.out.println("điền sai định dạng, vui lòng nhập lại!!");
             }
         }
-        System.out.println("nhập tên học sinh :");
+        System.out.println("nhập họ tên học sinh :");
         String name;
         while (true){
             try {
                 name = scanner.nextLine();
-                for (int i = 0; i < name.length(); i++) {
-                    if (name.charAt(i)>0&&name.charAt(i)<32 || name.charAt(i)>32&&name.charAt(i)<65 || name.charAt(i)>90&&name.charAt(i)<97 || name.charAt(i)>122){
-                        throw new IllegalArgumentException("phải nhập tên bằng chữ, hãy nhập lại!");
-                    }
+                if (!name.matches("^([A-Z][a-z]+[ ])+[A-Z][a-z]+$")){
+                    throw new IllegalArgumentException("phải nhập tên bằng chữ và phải có họ tên viết hoa, hãy nhập lại!");
                 }
                 break;
-
             }catch (IllegalArgumentException e){
                 System.out.println(e.getMessage());
             }
         }
         System.out.println("nhập ngày sinh :");
-        String birthDay = scanner.nextLine();
+        String birthDay;
+        while (true){
+            try {
+                birthDay  = scanner.nextLine();
+
+                if (!birthDay.matches("^[0-9]{2}[/][0-9]{2}[/][0-9]{4}$")) {
+                    throw new IllegalArgumentException("nhập ngày sinh không đúng định dạng, hãy nhập lại!");
+                }
+                break;
+            }catch (IllegalArgumentException e){
+                System.out.println(e.getMessage());;
+            }
+        }
         System.out.println("nhập giới tính :");
         String age = scanner.nextLine();
         while (!age.equals("Nam") && !age.equals("Nữ") && !age.equals("giới tính thứ 3")){
@@ -128,7 +137,18 @@ public class StudentService implements IStudentService {
         }
 
         System.out.println("nhập tên lớp :");
-        String nameClass = scanner.nextLine();
+        String nameClass;
+        while (true){
+            try {
+                nameClass = scanner.nextLine();
+                if (!nameClass.matches("^[CA][0-9]{4}[G][12]$")) {
+                    throw new IllegalArgumentException("hãy nhập đúng định dạng tên lớp. VD:C0722G1");
+                }
+                break;
+            }catch (IllegalArgumentException e){
+                System.out.println(e.getMessage());
+            }
+        }
         double scores;
         while (true){
             try {

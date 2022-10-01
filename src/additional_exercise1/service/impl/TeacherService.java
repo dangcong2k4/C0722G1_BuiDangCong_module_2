@@ -12,7 +12,7 @@ public class TeacherService implements ITeacherService {
     private static Scanner scanner = new Scanner(System.in);
     private static List<Teacher> listTeacher = new ArrayList<>();
     @Override
-    public void addTeacher() throws IOException {
+    public void addTeacher() {
         listTeacher = getTeacherFromFile();
         listTeacher.add(inFoTeacher());
         System.out.println("thêm mới thành công ");
@@ -20,7 +20,7 @@ public class TeacherService implements ITeacherService {
     }
 
     @Override
-    public void deleteTeacher() throws IOException {
+    public void deleteTeacher() {
         listTeacher = getTeacherFromFile();
         System.out.println("nhập id của giáo viên cần xóa ");
         int id = Integer.parseInt(scanner.nextLine());
@@ -34,7 +34,7 @@ public class TeacherService implements ITeacherService {
                     listTeacher.remove(i);
                     System.out.println("Xóa thành công");
                 }
-//                flagDelete =true;
+                flagDelete =true;
                 break;
             }
 
@@ -46,7 +46,7 @@ public class TeacherService implements ITeacherService {
     }
 
     @Override
-    public void displayTeacher() throws IOException {
+    public void displayTeacher() {
         listTeacher = getTeacherFromFile();
         for (Teacher teacher:listTeacher) {
             System.out.println(teacher);
@@ -105,19 +105,28 @@ public class TeacherService implements ITeacherService {
         while (true){
             try {
                 name = scanner.nextLine();
-                for (int i = 0; i < name.length(); i++) {
-                    if (name.charAt(i)>0&&name.charAt(i)<32 || name.charAt(i)>32&&name.charAt(i)<65 || name.charAt(i)>90&&name.charAt(i)<97 || name.charAt(i)>122){
-                        throw new IllegalArgumentException("phải nhập tên bằng chữ, hãy nhập lại!");
-                    }
+                if (!name.matches("([A-Z][a-z]+[ ])+[A-Z][a-z]+")){
+                    throw new IllegalArgumentException("phải nhập tên bằng chữ và có họ tên , hãy nhập lại!");
                 }
                 break;
-
             }catch (IllegalArgumentException e){
                 System.out.println(e.getMessage());
             }
         }
         System.out.println("nhập ngày sinh :");
-        String birthDay = scanner.nextLine();
+        String birthDay ;
+
+        while (true) {
+            try {
+                birthDay = scanner.nextLine();
+                if (!birthDay.matches("[0-9]{2}[/][0-9]{2}[/][0-9]{4}")){
+                    throw new IllegalArgumentException("nhập ngày sinh không đúng định dạng, hãy nhập lại!");
+                }
+                break;
+            }catch (IllegalArgumentException e){
+                System.out.println(e.getMessage());
+            }
+        }
         System.out.println("nhập giới tính :");
         String age = scanner.nextLine();
         while (!age.equals("Nam") && !age.equals("Nữ") && !age.equals("giới tính thứ 3")){
@@ -125,7 +134,18 @@ public class TeacherService implements ITeacherService {
             age = scanner.nextLine();
         }
         System.out.println("nhập chuyên môn :");
-        String specialize = scanner.nextLine();
+        String specialize;
+        while (true){
+            try {
+                specialize = scanner.nextLine();
+                if (!specialize.matches("([a-z]+[ ])+[a-z]+")){
+                    throw new IllegalArgumentException("hãy nhập đúng chuyên môn ");
+                }
+                break;
+            }catch (IllegalArgumentException e){
+                System.out.println(e.getMessage());
+            }
+        }
         Teacher teacher = new Teacher(id,name,birthDay,age,specialize);
         return teacher;
     }
