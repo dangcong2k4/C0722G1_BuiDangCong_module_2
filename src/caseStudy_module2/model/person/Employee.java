@@ -8,8 +8,8 @@ public class Employee extends Person{
     public Employee() {
     }
 
-    public Employee(String code, String name, String birthday, String age, String idNumber, String phoneNumber, String email, String level, String position, double wage) {
-        super(code, name, birthday, age, idNumber, phoneNumber, email);
+    public Employee(String code, String name, String birthday, String idNumber, String phoneNumber, String email, String level, String position, double wage) {
+        super(code, name, birthday, idNumber, phoneNumber, email);
         this.level = level;
         this.position = position;
         this.wage = wage;
@@ -42,7 +42,7 @@ public class Employee extends Person{
     @Override
     public String toString() {
         return "Employee{" + super.toString() +
-                "level='" + level + '\'' +
+                ", level='" + level + '\'' +
                 ", position='" + position + '\'' +
                 ", wage='" + wage + '\'' +
                 '}';

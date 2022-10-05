@@ -2,15 +2,15 @@ package caseStudy_module2.model.resort;
 
 public abstract class Facility {
     private String service;
-    private String usableArea;
+    private double usableArea;
     private double cost;
-    private String AmountPeople;
+    private int AmountPeople;
     private String rentStyle;
 
     public Facility() {
     }
 
-    public Facility(String service, String usableArea, double cost, String amountPeople, String rentStyle) {
+    public Facility(String service, double usableArea, double cost, int amountPeople, String rentStyle) {
         this.service = service;
         this.usableArea = usableArea;
         this.cost = cost;
@@ -26,11 +26,11 @@ public abstract class Facility {
         this.service = service;
     }
 
-    public String getUsableArea() {
+    public double getUsableArea() {
         return usableArea;
     }
 
-    public void setUsableArea(String usableArea) {
+    public void setUsableArea(double usableArea) {
         this.usableArea = usableArea;
     }
 
@@ -42,11 +42,11 @@ public abstract class Facility {
         this.cost = cost;
     }
 
-    public String getAmountPeople() {
+    public int getAmountPeople() {
         return AmountPeople;
     }
 
-    public void setAmountPeople(String amountPeople) {
+    public void setAmountPeople(int amountPeople) {
         AmountPeople = amountPeople;
     }
 

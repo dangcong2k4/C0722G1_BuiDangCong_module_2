@@ -4,7 +4,6 @@ public abstract class Person {
     private String code;
     private String name;
     private String birthday;
-    private String age;
     private String idNumber;
     private String phoneNumber;
     private String email;
@@ -12,11 +11,10 @@ public abstract class Person {
     public Person() {
     }
 
-    public Person(String code, String name, String birthday, String age, String idNumber, String phoneNumber, String email) {
+    public Person(String code, String name, String birthday, String idNumber, String phoneNumber, String email) {
         this.code = code;
         this.name = name;
         this.birthday = birthday;
-        this.age = age;
         this.idNumber = idNumber;
         this.phoneNumber = phoneNumber;
         this.email = email;
@@ -44,14 +42,6 @@ public abstract class Person {
 
     public void setBirthday(String birthday) {
         this.birthday = birthday;
-    }
-
-    public String getAge() {
-        return age;
-    }
-
-    public void setAge(String age) {
-        this.age = age;
     }
 
     public String getIdNumber() {
@@ -83,7 +73,6 @@ public abstract class Person {
         return "code='" + code + '\'' +
                 ", name='" + name + '\'' +
                 ", birthday='" + birthday + '\'' +
-                ", age='" + age + '\'' +
                 ", idNumber='" + idNumber + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
                 ", email='" + email + '\'' ;

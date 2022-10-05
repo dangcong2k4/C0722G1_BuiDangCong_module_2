@@ -2,12 +2,12 @@ package caseStudy_module2.model.resort;
 
 public class House extends Facility {
     private String roomStandard;
-    private String numberFloors;
+    private int numberFloors;
 
     public House() {
     }
 
-    public House(String service, String usableArea, double cost, String amountPeople, String rentStyle, String roomStandard, String numberFloors) {
+    public House(String service, double usableArea, double cost, int amountPeople, String rentStyle, String roomStandard, int numberFloors) {
         super(service, usableArea, cost, amountPeople, rentStyle);
         this.roomStandard = roomStandard;
         this.numberFloors = numberFloors;
@@ -21,11 +21,11 @@ public class House extends Facility {
         this.roomStandard = roomStandard;
     }
 
-    public String getNumberFloors() {
+    public int getNumberFloors() {
         return numberFloors;
     }
 
-    public void setNumberFloors(String numberFloors) {
+    public void setNumberFloors(int numberFloors) {
         this.numberFloors = numberFloors;
     }
 

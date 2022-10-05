@@ -1,0 +1,1 @@
+ngam canh,21.0,3000000.0,4,thuê theo giờ,5sao,10.0,5

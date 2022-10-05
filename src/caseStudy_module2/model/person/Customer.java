@@ -7,8 +7,8 @@ public class Customer extends Person{
     public Customer() {
     }
 
-    public Customer(String code, String name, String birthday, String age, String idNumber, String phoneNumber, String email, String typeOfGuest, String address) {
-        super(code, name, birthday, age, idNumber, phoneNumber, email);
+    public Customer(String code, String name, String birthday, String idNumber, String phoneNumber, String email, String typeOfGuest, String address) {
+        super(code, name, birthday, idNumber, phoneNumber, email);
         this.typeOfGuest = typeOfGuest;
         this.address = address;
     }
@@ -32,7 +32,7 @@ public class Customer extends Person{
     @Override
     public String toString() {
         return "Customer{" + super.toString() +
-                "typeOfGuest='" + typeOfGuest + '\'' +
+                ", typeOfGuest='" + typeOfGuest + '\'' +
                 ", address='" + address + '\'' +
                 '}';
     }
