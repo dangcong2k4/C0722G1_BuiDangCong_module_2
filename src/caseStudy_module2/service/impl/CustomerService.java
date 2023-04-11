@@ -4,13 +4,18 @@ import caseStudy_module2.model.person.Customer;
 import caseStudy_module2.service.ICustomerService;
 
 import java.io.*;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 public class CustomerService implements ICustomerService {
     private static Scanner scanner = new Scanner(System.in);
-    private static List<Customer> customerList = new ArrayList<>();
+    public static List<Customer> customerList = new ArrayList<>();
+    private static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
     @Override
     public void edit() {
         customerList = getCustomerFromFile();
@@ -34,17 +39,19 @@ public class CustomerService implements ICustomerService {
                 }
                 customerList.get(i).setName(name);
                 System.out.println("hãy nhập ngày tháng năm sinh :");
-                String birthday;
+                LocalDate birthday;
                 while (true) {
                     try {
-                        birthday = scanner.nextLine();
-
-                        if (!birthday.matches("^[123][0-9][/][01][0-9][/][0-9]{4}$")) {
-                            throw new IllegalArgumentException("nhập ngày sinh không đúng định dạng,VD:12/12/2002");
+                        birthday = LocalDate.parse(scanner.nextLine(), formatter);
+                        LocalDate date = LocalDate.now();
+                        long day = birthday.until(date, ChronoUnit.DAYS);
+                        if (day/ 365.5 > 18 && day/365.5 < 100) {
+                            break;
+                        }else {
+                            throw new Exception();
                         }
-                        break;
-                    } catch (IllegalArgumentException e) {
-                        System.out.println(e.getMessage());
+                    } catch (Exception e) {
+                        System.out.println("hãy nhập đúng định dạng và đúng độ tuổi");;
                     }
                 }
                 customerList.get(i).setBirthday(birthday);
@@ -143,6 +150,7 @@ public class CustomerService implements ICustomerService {
                 }
                 customerList.get(i).setAddress(address);
                 System.out.println("sửa thông tin khách hàng thành công");
+                break;
             }else {
                 count++;
             }
@@ -159,7 +167,6 @@ public class CustomerService implements ICustomerService {
         for (Customer customer:customerList) {
             System.out.println(customer);
         }
-        writeFile(customerList);
     }
 
     @Override
@@ -200,17 +207,19 @@ public class CustomerService implements ICustomerService {
             }
         }
         System.out.println("hãy nhập ngày tháng năm sinh :");
-        String birthday;
+        LocalDate birthday;
         while (true) {
             try {
-                birthday = scanner.nextLine();
-
-                if (!birthday.matches("^[123][0-9][/][01][0-9][/][0-9]{4}$")) {
-                    throw new IllegalArgumentException("nhập ngày sinh không đúng định dạng,VD:12/12/2002");
+                birthday = LocalDate.parse(scanner.nextLine(), formatter);
+                LocalDate date = LocalDate.now();
+                long day = birthday.until(date, ChronoUnit.DAYS);
+                if (day/ 365.5 > 18 && day/365.5 < 100) {
+                    break;
+                }else {
+                    throw new Exception();
                 }
-                break;
-            } catch (IllegalArgumentException e) {
-                System.out.println(e.getMessage());
+            } catch (Exception e) {
+                System.out.println("hãy nhập đúng định dạng và đúng độ tuổi");;
             }
         }
 
@@ -308,7 +317,7 @@ public class CustomerService implements ICustomerService {
         return customer;
     }
 
-    private List<Customer> getCustomerFromFile() {
+    public List<Customer> getCustomerFromFile() {
         FileReader file ;
         List<Customer> customerList1 = new ArrayList<>();
         BufferedReader bufferedReader = null;
@@ -321,7 +330,7 @@ public class CustomerService implements ICustomerService {
             Customer customer;
             while ((line = bufferedReader.readLine())!=null) {
                 info = line.split(",");
-                customer = new Customer(info[0],info[1],info[2],info[4],info[5],info[6],info[7],info[8]);
+                customer = new Customer(info[0],info[1],LocalDate.parse(info[2]),info[3],info[4],info[5],info[6],info[7]);
                 customerList1.add(customer);
             }
         }catch (FileNotFoundException e) {
@@ -356,7 +365,7 @@ public class CustomerService implements ICustomerService {
     }
 
     private String getInfo(Customer customer) {
-        return String.format("%s,%s,%s,%s,%s,%s,%s,%s,%s",customer.getCode(),customer.getName(),customer.getBirthday(),customer.getIdNumber(),customer.getPhoneNumber(),customer.getEmail(),customer.getTypeOfGuest(),customer.getAddress());
+        return String.format("%s,%s,%s,%s,%s,%s,%s,%s",customer.getCode(),customer.getName(),customer.getBirthday(),customer.getIdNumber(),customer.getPhoneNumber(),customer.getEmail(),customer.getTypeOfGuest(),customer.getAddress());
     }
 
 

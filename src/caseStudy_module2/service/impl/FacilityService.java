@@ -1,7 +1,5 @@
 package caseStudy_module2.service.impl;
 
-import caseStudy_module2.model.person.Customer;
-import caseStudy_module2.model.resort.Facility;
 import caseStudy_module2.model.resort.House;
 import caseStudy_module2.model.resort.Room;
 import caseStudy_module2.model.resort.Villa;
@@ -31,16 +29,19 @@ public class FacilityService implements IFacilityService {
                         villaMap.put(villa,0);
                         writeVillaFile(villaMap);
                         System.out.println("thêm thành công");
-
                         break;
                     case 2:
+                        houseMap = getHouseFromFile();
                         House house = this.infoHouse();
                         houseMap.put(house,0);
+                        writeHouseFile(houseMap);
                         System.out.println("thêm thành công");
                         break;
                     case 3:
+                        roomMap = getRoomFromFile();
                         Room room = this.infoRoom();
                         roomMap.put(room,0);
+                        writeRoomFile(roomMap);
                         System.out.println("thêm thành công");
                         break;
                     case 4:
@@ -52,6 +53,7 @@ public class FacilityService implements IFacilityService {
             }catch (IllegalArgumentException e){
                 System.out.println(e.getMessage());
             }
+
         }
     }
 
@@ -76,6 +78,7 @@ public class FacilityService implements IFacilityService {
                         }
                         break;
                     case 2:
+                        houseMap = getHouseFromFile();
                         Set<House> houses;
                         houses = houseMap.keySet();
                         for (House house:houses) {
@@ -83,6 +86,7 @@ public class FacilityService implements IFacilityService {
                         }
                         break;
                     case 3:
+                        roomMap = getRoomFromFile();
                         Set<Room> rooms;
                         rooms = roomMap.keySet();
                         for (Room room:rooms) {
@@ -101,17 +105,19 @@ public class FacilityService implements IFacilityService {
         }
     }
 
+
     @Override
     public void maintenance() {
 
     }
+
     public Villa infoVilla(){
         System.out.println("nhập tên dịch vụ");
         String service;
         while (true){
             try {
                 service = scanner.nextLine();
-                if (!service.matches("^([a-z]+[ ])+[a-z]+$")){
+                if (!service.matches("^([A-Z][a-z]+[ ])+[]A-z][a-z]+$")){
                     throw new IllegalArgumentException("hãy nhập đúng định dạng tên dịch vụ ");
                 }
                 break;
@@ -119,13 +125,27 @@ public class FacilityService implements IFacilityService {
                 System.out.println(e.getMessage() );
             }
         }
+        System.out.println("nhập mã dịch vụ");
+        String serviceCode;
+        while (true){
+            try {
+                serviceCode = scanner.nextLine();
+                if (!serviceCode.matches("^[S][V][V][L][-][0-9]{4}$")){
+                    throw new IllegalArgumentException("hãy nhập đúng định dạng mã dịch vụ:SVVL-0001 ");
+                }
+                break;
+            }catch (IllegalArgumentException e){
+                System.out.println(e.getMessage() );
+            }
+        }
+
         System.out.println("nhập diện tích sự dụng m^2");
         double usableArea;
         while (true){
             try {
                 usableArea = Double.parseDouble(scanner.nextLine());
-                while (usableArea < 20){
-                    System.out.println("diện tích sử dụng phải lớn hơn 20 m^2");
+                while (usableArea < 30){
+                    System.out.println("diện tích sử dụng phải lớn hơn 30 m^2");
                     usableArea = Double.parseDouble(scanner.nextLine());
                 }
                 break;
@@ -140,7 +160,7 @@ public class FacilityService implements IFacilityService {
             try {
                 cost = Double.parseDouble(scanner.nextLine());
                 while (cost <= 2000000){
-                    System.out.println("chi phí thuê phải lớn hơn 20 triệu đồng ");
+                    System.out.println("chi phí thuê phải lớn hơn 2 triệu đồng ");
                     cost = Double.parseDouble(scanner.nextLine());
                 }
                 break;
@@ -154,8 +174,8 @@ public class FacilityService implements IFacilityService {
         while (true){
             try {
                 amountPeople = Integer.parseInt(scanner.nextLine());
-                while (amountPeople <1){
-                    System.out.println("số lượng người phải là số nguyên dương ");
+                while (amountPeople <1 || amountPeople>20){
+                    System.out.println("Số lượng người tối đa phải >0 và nhỏ hơn <20 người ");
                     amountPeople = Integer.parseInt(scanner.nextLine());
                 }
                 break;
@@ -176,12 +196,16 @@ public class FacilityService implements IFacilityService {
                 switch (option){
                     case 1:
                         rentStyle = "thuê theo năm";
+                        break;
                     case 2:
                         rentStyle = "thuê theo tháng";
+                        break;
                     case 3:
                         rentStyle = "thuê theo ngày";
+                        break;
                     case 4:
                         rentStyle = "thuê theo giờ";
+                        break;
                 }
                 if (option!=1 && option!=2 && option!=3 && option!=4) {
                     throw new IllegalArgumentException("hãy nhập 1 trong 4 chức năng trên");
@@ -209,8 +233,8 @@ public class FacilityService implements IFacilityService {
         while (true){
             try {
                 poolArea = Double.parseDouble(scanner.nextLine());
-                while (poolArea < 10){
-                    System.out.println("diện tích hồ bơi phải lớn hơn 10 m^2");
+                while (poolArea < 30){
+                    System.out.println("diện tích hồ bơi phải lớn hơn 30 m^2");
                     poolArea = Double.parseDouble(scanner.nextLine());
                 }
                 break;
@@ -234,7 +258,7 @@ public class FacilityService implements IFacilityService {
                 System.out.println(e.getMessage());
             }
         }
-        Villa villa = new Villa(service,usableArea,cost,amountPeople,rentStyle,roomStandard,poolArea,numberFloors);
+        Villa villa = new Villa(service,serviceCode,usableArea,cost,amountPeople,rentStyle,roomStandard,poolArea,numberFloors);
         return villa;
     }
     public House infoHouse(){
@@ -243,7 +267,7 @@ public class FacilityService implements IFacilityService {
         while (true){
             try {
                 service = scanner.nextLine();
-                if (!service.matches("^([a-z]+[ ])+[a-z]+$")){
+                if (!service.matches("^([A-Z][a-z]+[ ])+[]A-z][a-z]+$")){
                     throw new IllegalArgumentException("hãy nhập đúng định dạng tên dịch vụ ");
                 }
                 break;
@@ -251,12 +275,26 @@ public class FacilityService implements IFacilityService {
                 System.out.println(e.getMessage() );
             }
         }
+        System.out.println("nhập mã dịch vụ");
+        String serviceCode;
+        while (true){
+            try {
+                serviceCode = scanner.nextLine();
+                if (!serviceCode.matches("^[S][V][H][O][-][0-9]{4}$")){
+                    throw new IllegalArgumentException("hãy nhập đúng định dạng mã dịch vụ:SVVL-0001 ");
+                }
+                break;
+            }catch (IllegalArgumentException e){
+                System.out.println(e.getMessage() );
+            }
+        }
+
         System.out.println("nhập diện tích sự dụng");
         double usableArea;
         while (true){
             try {
                 usableArea = Double.parseDouble(scanner.nextLine());
-                while (usableArea < 20){
+                while (usableArea < 30){
                     System.out.println("diện tích sử dụng phải lớn hơn 20 m^2");
                     usableArea = Double.parseDouble(scanner.nextLine());
                 }
@@ -272,7 +310,7 @@ public class FacilityService implements IFacilityService {
             try {
                 cost = Double.parseDouble(scanner.nextLine());
                 while (cost <= 2000000){
-                    System.out.println("chi phí thuê phải lớn hơn 20 triệu đồng ");
+                    System.out.println("chi phí thuê phải lớn hơn 2 triệu đồng ");
                     cost = Double.parseDouble(scanner.nextLine());
                 }
                 break;
@@ -286,8 +324,8 @@ public class FacilityService implements IFacilityService {
         while (true){
             try {
                 amountPeople = Integer.parseInt(scanner.nextLine());
-                while (amountPeople <1){
-                    System.out.println("số lượng người phải là số nguyên dương ");
+                while (amountPeople <1 || amountPeople>20){
+                    System.out.println("Số lượng người tối đa phải >0 và nhỏ hơn <20");
                     amountPeople = Integer.parseInt(scanner.nextLine());
                 }
                 break;
@@ -308,12 +346,16 @@ public class FacilityService implements IFacilityService {
                 switch (option){
                     case 1:
                         rentStyle = "thuê theo năm";
+                        break;
                     case 2:
                         rentStyle = "thuê theo tháng";
+                        break;
                     case 3:
                         rentStyle = "thuê theo ngày";
+                        break;
                     case 4:
                         rentStyle = "thuê theo giờ";
+                        break;
                 }
                 if (option!=1 && option!=2 && option!=3 && option!=4) {
                     throw new IllegalArgumentException("hãy nhập 1 trong 4 chức năng trên");
@@ -351,7 +393,7 @@ public class FacilityService implements IFacilityService {
                 System.out.println(e.getMessage());
             }
         }
-        House house = new House(service,usableArea,cost,amountPeople,rentStyle,roomStandard,numberFloors);
+        House house = new House(service, serviceCode,usableArea,cost,amountPeople,rentStyle,roomStandard,numberFloors);
         return house;
     }
     public Room infoRoom(){
@@ -360,7 +402,7 @@ public class FacilityService implements IFacilityService {
         while (true){
             try {
                 service = scanner.nextLine();
-                if (!service.matches("^([a-z]+[ ])+[a-z]+$")){
+                if (!service.matches("^([A-Z][a-z]+[ ])+[]A-z][a-z]+$")){
                     throw new IllegalArgumentException("hãy nhập đúng định dạng tên dịch vụ ");
                 }
                 break;
@@ -368,13 +410,27 @@ public class FacilityService implements IFacilityService {
                 System.out.println(e.getMessage() );
             }
         }
+        System.out.println("nhập mã dịch vụ");
+        String serviceCode;
+        while (true){
+            try {
+                serviceCode = scanner.nextLine();
+                if (!serviceCode.matches("^[S][V][R][O][-][0-9]{4}$")){
+                    throw new IllegalArgumentException("hãy nhập đúng định dạng mã dịch vụ:SVVL-0001 ");
+                }
+                break;
+            }catch (IllegalArgumentException e){
+                System.out.println(e.getMessage() );
+            }
+        }
+
         System.out.println("nhập diện tích sự dụng");
         double usableArea ;
         while (true){
             try {
                 usableArea = Double.parseDouble(scanner.nextLine());
-                while (usableArea < 20){
-                    System.out.println("diện tích sử dụng phải lớn hơn 20 m^2");
+                while (usableArea < 30){
+                    System.out.println("diện tích sử dụng phải lớn hơn 30 m^2");
                     usableArea = Double.parseDouble(scanner.nextLine());
                 }
                 break;
@@ -389,7 +445,7 @@ public class FacilityService implements IFacilityService {
             try {
                 cost = Double.parseDouble(scanner.nextLine());
                 while (cost <= 2000000){
-                    System.out.println("chi phí thuê phải lớn hơn 20 triệu đồng ");
+                    System.out.println("chi phí thuê phải lớn hơn 2 triệu đồng ");
                     cost = Double.parseDouble(scanner.nextLine());
                 }
                 break;
@@ -403,8 +459,8 @@ public class FacilityService implements IFacilityService {
         while (true){
             try {
                 amountPeople = Integer.parseInt(scanner.nextLine());
-                while (amountPeople <1){
-                    System.out.println("số lượng người phải là số nguyên dương ");
+                while (amountPeople <1 || amountPeople>20){
+                    System.out.println("");
                     amountPeople = Integer.parseInt(scanner.nextLine());
                 }
                 break;
@@ -425,12 +481,16 @@ public class FacilityService implements IFacilityService {
                 switch (option){
                     case 1:
                         rentStyle = "thuê theo năm";
+                        break;
                     case 2:
                         rentStyle = "thuê theo tháng";
+                        break;
                     case 3:
                         rentStyle = "thuê theo ngày";
+                        break;
                     case 4:
                         rentStyle = "thuê theo giờ";
+                        break;
                 }
                 if (option!=1 && option!=2 && option!=3 && option!=4) {
                     throw new IllegalArgumentException("hãy nhập 1 trong 4 chức năng trên");
@@ -453,10 +513,11 @@ public class FacilityService implements IFacilityService {
                 System.out.println(e.getMessage());
             }
         }
-        Room room = new Room(service,usableArea,cost,amountPeople,rentStyle,freeService);
+        Room room = new Room(service, serviceCode,usableArea,cost,amountPeople,rentStyle,freeService);
         return room;
     }
-    private Map<Villa, Integer> getVillaFromFile() {
+
+    public Map<Villa, Integer> getVillaFromFile() {
         FileReader file ;
         Map<Villa, Integer> villas = new LinkedHashMap<>();
         BufferedReader bufferedReader = null;
@@ -468,7 +529,7 @@ public class FacilityService implements IFacilityService {
             Villa villa;
             while ((line = bufferedReader.readLine())!=null) {
                 info = line.split(",");
-                villa = new Villa(info[0],Double.parseDouble(info[1]),Double.parseDouble(info[2]),Integer.parseInt(info[3]),info[4],info[5],Double.parseDouble(info[6]),Integer.parseInt(info[7]));
+                villa = new Villa(info[0],info[1],Double.parseDouble(info[2]),Double.parseDouble(info[3]),Integer.parseInt(info[4]),info[5],info[6],Double.parseDouble(info[7]),Integer.parseInt(info[8]));
                 villas.put(villa,0);
             }
         }catch (FileNotFoundException e) {
@@ -504,8 +565,109 @@ public class FacilityService implements IFacilityService {
         }
     }
     private String getInfoVilla(Villa villa) {
-        return String.format("%s,%s,%s,%s,%s,%s,%s,%s",villa.getService(),villa.getUsableArea(),villa.getCost(),villa.getAmountPeople(),villa.getRentStyle(),villa.getRoomStandard(),villa.getPoolArea(),villa.getNumberFloors());
+        return String.format("%s,%s,%s,%s,%s,%s,%s,%s,%s",villa.getService(),villa.getServiceCode(),villa.getUsableArea(),villa.getCost(),villa.getAmountPeople(),villa.getRentStyle(),villa.getRoomStandard(),villa.getPoolArea(),villa.getNumberFloors());
     }
 
+    public Map<House, Integer> getHouseFromFile() {
+        FileReader file ;
+        Map<House, Integer> houses = new LinkedHashMap<>();
+        BufferedReader bufferedReader = null;
+        try {
+            file = new FileReader("C:\\CODEGYM\\module2\\src\\caseStudy_module2\\data\\houseFile.txt");
+            bufferedReader = new BufferedReader(file);
+            String line;
+            String[] info;
+            House house;
+            while ((line = bufferedReader.readLine())!=null) {
+                info = line.split(",");
+                house = new House(info[0],info[1],Double.parseDouble(info[2]),Double.parseDouble(info[3]),Integer.parseInt(info[4]),info[5],info[6],Integer.parseInt(info[7]));
+                houses.put(house,0);
+            }
+        }catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        try {
+            bufferedReader.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return houses;
+    }
+    private void writeHouseFile(Map<House, Integer> houseMap) {
+        BufferedWriter bufferedWriter = null;
+        try {
+            FileWriter fileWriter = new FileWriter("C:\\CODEGYM\\module2\\src\\caseStudy_module2\\data\\houseFile.txt");
+            bufferedWriter = new BufferedWriter(fileWriter);
+            Set<House> houses;
+            houses = houseMap.keySet();
+            for (House house:houses) {
+                bufferedWriter.write(getInfoHouse(house));
+                bufferedWriter.newLine();
+            }
+        }catch (IOException e) {
+            e.printStackTrace();
+        }
+        try {
+            bufferedWriter.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    private String getInfoHouse(House house) {
+        return String.format("%s,%s,%s,%s,%s,%s,%s,%s",house.getService(),house.getServiceCode(),house.getUsableArea(),house.getCost(),house.getAmountPeople(),house.getRentStyle(),house.getRoomStandard(),house.getNumberFloors());
+    }
+
+    public Map<Room, Integer> getRoomFromFile() {
+        FileReader file ;
+        Map<Room, Integer> rooms = new LinkedHashMap<>();
+        BufferedReader bufferedReader = null;
+        try {
+            file = new FileReader("C:\\CODEGYM\\module2\\src\\caseStudy_module2\\data\\roomFile.txt");
+            bufferedReader = new BufferedReader(file);
+            String line;
+            String[] info;
+            Room room;
+            while ((line = bufferedReader.readLine())!=null) {
+                info = line.split(",");
+                room = new Room(info[0],info[1],Double.parseDouble(info[2]),Double.parseDouble(info[3]),Integer.parseInt(info[4]),info[5],info[6]);
+                rooms.put(room,0);
+            }
+        }catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        try {
+            bufferedReader.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return rooms;
+    }
+    private void writeRoomFile(Map<Room, Integer> roomMap) {
+        BufferedWriter bufferedWriter = null;
+        try {
+            FileWriter fileWriter = new FileWriter("C:\\CODEGYM\\module2\\src\\caseStudy_module2\\data\\roomFile.txt");
+            bufferedWriter = new BufferedWriter(fileWriter);
+            Set<Room> rooms;
+            rooms = roomMap.keySet();
+            for (Room room:rooms) {
+                bufferedWriter.write(getInfoRoom(room));
+                bufferedWriter.newLine();
+            }
+        }catch (IOException e) {
+            e.printStackTrace();
+        }
+        try {
+            bufferedWriter.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    private String getInfoRoom(Room room) {
+        return String.format("%s,%s,%s,%s,%s,%s,%s",room.getService(),room.getServiceCode(),room.getUsableArea(),room.getCost(),room.getAmountPeople(),room.getRentStyle(),room.getFreeService());
+    }
 
 }

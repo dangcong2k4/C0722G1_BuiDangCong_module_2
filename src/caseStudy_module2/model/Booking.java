@@ -1,22 +1,26 @@
 package caseStudy_module2.model;
 
-public class Booking {
+import Ss7_Abstract_Class_and_Interface.Exercise.Colorable_for_layers.Colorable;
+
+import java.time.LocalDate;
+
+public class Booking implements Comparable<Booking> {
     private String codeBooking;
-    private String startDay;
-    private String stopDay;
+    private LocalDate startDay;
+    private LocalDate stopDay;
     private String codeCustomer;
-    private String serviceName;
+    private String serviceCode;
     private String serviceType;
 
     public Booking() {
     }
 
-    public Booking(String codeBooking, String startDay, String stopDay, String codeCustomer, String serviceName, String serviceType) {
+    public Booking(String codeBooking, LocalDate startDay, LocalDate stopDay, String codeCustomer, String serviceCode, String serviceType) {
         this.codeBooking = codeBooking;
         this.startDay = startDay;
         this.stopDay = stopDay;
         this.codeCustomer = codeCustomer;
-        this.serviceName = serviceName;
+        this.serviceCode = serviceCode;
         this.serviceType = serviceType;
     }
 
@@ -28,19 +32,19 @@ public class Booking {
         this.codeBooking = codeBooking;
     }
 
-    public String getStartDay() {
+    public LocalDate getStartDay() {
         return startDay;
     }
 
-    public void setStartDay(String startDay) {
+    public void setStartDay(LocalDate startDay) {
         this.startDay = startDay;
     }
 
-    public String getStopDay() {
+    public LocalDate getStopDay() {
         return stopDay;
     }
 
-    public void setStopDay(String stopDay) {
+    public void setStopDay(LocalDate stopDay) {
         this.stopDay = stopDay;
     }
 
@@ -53,11 +57,11 @@ public class Booking {
     }
 
     public String getServiceName() {
-        return serviceName;
+        return serviceCode;
     }
 
     public void setServiceName(String serviceName) {
-        this.serviceName = serviceName;
+        this.serviceCode = serviceName;
     }
 
     public String getServiceType() {
@@ -75,8 +79,18 @@ public class Booking {
                 ", startDay='" + startDay + '\'' +
                 ", stopDay='" + stopDay + '\'' +
                 ", codeCustomer='" + codeCustomer + '\'' +
-                ", serviceName='" + serviceName + '\'' +
+                ", serviceName='" + serviceCode + '\'' +
                 ", serviceType='" + serviceType + '\'' +
                 '}';
+    }
+
+
+    @Override
+    public int compareTo(Booking o) {
+        int compareStartDate = this.getStartDay().compareTo(o.getStartDay());
+        if (compareStartDate != 0){
+            return compareStartDate;
+        }
+        return this.getStopDay().compareTo(o.getStopDay());
     }
 }

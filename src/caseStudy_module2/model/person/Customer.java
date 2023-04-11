@@ -1,5 +1,7 @@
 package caseStudy_module2.model.person;
 
+import java.time.LocalDate;
+
 public class Customer extends Person{
     private String typeOfGuest;
     private String address;
@@ -7,7 +9,7 @@ public class Customer extends Person{
     public Customer() {
     }
 
-    public Customer(String code, String name, String birthday, String idNumber, String phoneNumber, String email, String typeOfGuest, String address) {
+    public Customer(String code, String name, LocalDate birthday, String idNumber, String phoneNumber, String email, String typeOfGuest, String address) {
         super(code, name, birthday, idNumber, phoneNumber, email);
         this.typeOfGuest = typeOfGuest;
         this.address = address;

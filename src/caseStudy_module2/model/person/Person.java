@@ -1,9 +1,11 @@
 package caseStudy_module2.model.person;
 
+import java.time.LocalDate;
+
 public abstract class Person {
     private String code;
     private String name;
-    private String birthday;
+    private LocalDate birthday;
     private String idNumber;
     private String phoneNumber;
     private String email;
@@ -11,7 +13,7 @@ public abstract class Person {
     public Person() {
     }
 
-    public Person(String code, String name, String birthday, String idNumber, String phoneNumber, String email) {
+    public Person(String code, String name, LocalDate birthday, String idNumber, String phoneNumber, String email) {
         this.code = code;
         this.name = name;
         this.birthday = birthday;
@@ -36,11 +38,11 @@ public abstract class Person {
         this.name = name;
     }
 
-    public String getBirthday() {
+    public LocalDate getBirthday() {
         return birthday;
     }
 
-    public void setBirthday(String birthday) {
+    public void setBirthday(LocalDate birthday) {
         this.birthday = birthday;
     }
 

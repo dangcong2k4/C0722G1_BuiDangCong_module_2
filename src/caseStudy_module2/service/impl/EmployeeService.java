@@ -4,6 +4,9 @@ import caseStudy_module2.model.person.Employee;
 import caseStudy_module2.service.IEmployeeService;
 
 import java.io.*;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -11,6 +14,7 @@ import java.util.Scanner;
 public class EmployeeService implements IEmployeeService {
     private static Scanner scanner = new Scanner(System.in);
     private static List<Employee> employeeList = new ArrayList<>();
+    private static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
     @Override
     public void edit() {
@@ -35,17 +39,19 @@ public class EmployeeService implements IEmployeeService {
                 }
                 employeeList.get(i).setName(name);
                 System.out.println("hãy nhập ngày tháng năm sinh :");
-                String birthday ;
+                LocalDate birthday;
                 while (true) {
                     try {
-                        birthday = scanner.nextLine();
-
-                        if (!birthday.matches("^[123][0-9][/][01][0-9][/][0-9]{4}$")) {
-                            throw new IllegalArgumentException("nhập ngày sinh không đúng định dạng,VD:12/12/2002");
+                        birthday = LocalDate.parse(scanner.nextLine(), formatter);
+                        LocalDate date = LocalDate.now();
+                        long day = birthday.until(date, ChronoUnit.DAYS);
+                        if (day/ 365.5 > 18 && day/365.5 < 100) {
+                            break;
+                        }else {
+                            throw new Exception();
                         }
-                        break;
-                    } catch (IllegalArgumentException e) {
-                        System.out.println(e.getMessage());
+                    } catch (Exception e) {
+                        System.out.println("hãy nhập đúng định dạng và đúng độ tuổi");;
                     }
                 }
                 employeeList.get(i).setBirthday(birthday);
@@ -129,28 +135,44 @@ public class EmployeeService implements IEmployeeService {
 
                 System.out.println("chọn vị trí chức vụ :");
                 String position = "";
-
-                System.out.println("1. Lễ tân");
-                System.out.println("2. phục vụ");
-                System.out.println("3. chuyên viên");
-                System.out.println("4. giám sát");
-                System.out.println("5. quản lý");
-                System.out.println("6. giám đốc");
-                option = Integer.parseInt(scanner.nextLine());
-                switch (option) {
-                    case 1:
-                        position = "trung cấp";
+                while (true) {
+                    try {
+                        System.out.println("1. Lễ tân");
+                        System.out.println("2. phục vụ");
+                        System.out.println("3. chuyên viên");
+                        System.out.println("4. giám sát");
+                        System.out.println("5. quản lý");
+                        System.out.println("6. giám đốc");
+                        option = Integer.parseInt(scanner.nextLine());
+                        switch (option) {
+                            case 1:
+                                position = "Lễ tân";
+                                break;
+                            case 2:
+                                position = "phục vụ";
+                                break;
+                            case 3:
+                                position = "chuyên viên";
+                                break;
+                            case 4:
+                                position = "giám sát";
+                                break;
+                            case 5:
+                                position = "quản lý";
+                                break;
+                            case 6:
+                                position = "giám đốc";
+                                break;
+                        }
+                        if (option != 1 && option != 2 && option != 3 && option != 4 && option != 5 && option != 6) {
+                            throw new IllegalArgumentException("hãy chọn 1 trong 6 chức vụ trên ");
+                        }
                         break;
-                    case 2:
-                        position = "cao đẳng";
-                        break;
-                    case 3:
-                        position = "đại học";
-                        break;
-                    case 4:
-                        position = "sau đại học";
-                        break;
+                    } catch (IllegalArgumentException e) {
+                        System.out.println(e.getMessage());
+                    }
                 }
+
                 employeeList.get(i).setPosition(position);
                 System.out.println("nhập lương của nhân viên :");
                 double wage ;
@@ -167,6 +189,8 @@ public class EmployeeService implements IEmployeeService {
                     }
                 }
                 employeeList.get(i).setWage(wage);
+                System.out.println("thay đổi nhân viên thành công");
+                break;
             } else {
                 count++;
             }
@@ -224,17 +248,19 @@ public class EmployeeService implements IEmployeeService {
             }
         }
         System.out.println("hãy nhập ngày tháng năm sinh :");
-        String birthday;
+        LocalDate birthday;
         while (true) {
             try {
-                birthday = scanner.nextLine();
-
-                if (!birthday.matches("^[123][0-9][/][01][0-9][/][0-9]{4}$")) {
-                    throw new IllegalArgumentException("nhập ngày sinh không đúng định dạng,VD:12/12/2002");
+                birthday = LocalDate.parse(scanner.nextLine(), formatter);
+                LocalDate date = LocalDate.now();
+                long day = birthday.until(date, ChronoUnit.DAYS);
+                if (day/ 365.5 > 18 && day/365.5 < 100) {
+                    break;
+                }else {
+                    throw new Exception();
                 }
-                break;
-            } catch (IllegalArgumentException e) {
-                System.out.println(e.getMessage());
+            } catch (Exception e) {
+                System.out.println("hãy nhập đúng định dạng và đúng độ tuổi");
             }
         }
 
@@ -380,7 +406,7 @@ public class EmployeeService implements IEmployeeService {
             Employee employee;
             while ((line = bufferedReader.readLine()) != null) {
                 info = line.split(",");
-                employee = new Employee(info[0], info[1], info[2], info[4], info[5], info[6], info[7], info[8], Double.parseDouble(info[9]));
+                employee = new Employee(info[0], info[1], LocalDate.parse(info[2]), info[3], info[4], info[5], info[6], info[7], Double.parseDouble(info[8]));
                 employeeList1.add(employee);
             }
         } catch (FileNotFoundException e) {
@@ -416,7 +442,7 @@ public class EmployeeService implements IEmployeeService {
     }
 
     private String getInfo(Employee employee) {
-        return String.format("%s,%s,%s,%s,%s,%s,%s,%s,%s,%s", employee.getCode(), employee.getName(), employee.getBirthday(), employee.getIdNumber(), employee.getPhoneNumber(), employee.getEmail(), employee.getLevel(), employee.getPosition(), employee.getWage());
+        return String.format("%s,%s,%s,%s,%s,%s,%s,%s,%s", employee.getCode(), employee.getName(), employee.getBirthday(), employee.getIdNumber(), employee.getPhoneNumber(), employee.getEmail(), employee.getLevel(), employee.getPosition(), employee.getWage());
     }
 
 

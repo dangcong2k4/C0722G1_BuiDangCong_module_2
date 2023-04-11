@@ -19,6 +19,7 @@ public class Exercise_1 {
                     }
                     System.out.print("\n");
                 }
+                break;
             case 2:
                 int count = 1;
                 for (int i = 0; i <5 ; i++) {
@@ -28,6 +29,7 @@ public class Exercise_1 {
                     System.out.print("\n");
                     count++;
                 }
+                break;
             case 3:
                 int k = 6;
                 for (int i = 1; i <=k ; i++) {
@@ -39,6 +41,8 @@ public class Exercise_1 {
                     }
                     System.out.print("\n");
                 }
+                break;
+
         }
     }
 }

@@ -12,5 +12,6 @@ public class Exercise1 {
         }else {
             System.out.println("tên lớp không hợp lệ !!!");
         }
+
     }
 }
